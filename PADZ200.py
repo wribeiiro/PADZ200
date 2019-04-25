@@ -45,7 +45,11 @@ def export(file_pdf):
 
             # redimensionando as imagens - nao usado a principio
             img_rsz = Image.open(save_filename)
-            new_img_r = img_rsz.resize((1190, 1684))
+            image_size = img_rsz.size
+            width = int(image_size[0] * 0.5)
+            height = int(image_size[1] * 0.5)
+            
+            new_img_r = img_rsz.resize((width, height))
             new_img_r.save(save_filename, "JPEG")
 
     time.sleep(2)
