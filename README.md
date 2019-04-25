@@ -1,7 +1,7 @@
 # PADZ200 PDF2IMG
-Convert PDF files to image(s) (JPG) files
+Convert PDF files to images) (JPG) files passing command line arguments.
 
 # USAGE 
 ``` 
-PADZ200.EXE "c:\foo\foo.pdf"
+PADZ200.EXE "c:\file_name.pdf"
 ```
