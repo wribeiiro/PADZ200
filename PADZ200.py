@@ -14,7 +14,6 @@ from PIL import Image
 from pdf2image import convert_from_path
 
 def export(file_pdf):
-    #filename = os.path.join(sys.path[0] ,'tests', 'nt.pdf')
 
     filename = file_pdf
     name_jpg = os.path.splitext(os.path.basename(file_pdf))[0]
@@ -25,9 +24,10 @@ def export(file_pdf):
 
     time.sleep(2)
     print(Fore.GREEN + "Iniciando exportacao PDF > JPEG..." + Style.RESET_ALL) 
-
+ 
     with tempfile.TemporaryDirectory():
-        images_from_path = convert_from_path(filename, 300)     
+
+        images_from_path = convert_from_path(filename, 150, None, None, None, 'ppm', 1, None, False, False, False, None, os.path.join(getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__))), 'poppler-dll'))  
 
         # percorre pdf para exportar as paginas
         i = 0
@@ -44,20 +44,19 @@ def export(file_pdf):
             list_jpg.append(save_filename)
 
             # redimensionando as imagens - nao usado a principio
-            img_rsz = Image.open(save_filename)
-            image_size = img_rsz.size
-            width = int(image_size[0] * 0.5)
-            height = int(image_size[1] * 0.5)
-            
-            new_img_r = img_rsz.resize((width, height))
-            new_img_r.save(save_filename, "JPEG")
+            #img_rsz = Image.open(save_filename)
+            #image_size = img_rsz.size
+            #width = int(image_size[0] * 0.5)
+            #height = int(image_size[1] * 0.5)
+            #new_img_r = img_rsz.resize((0, height))
+            #new_img_r.save(save_filename, "JPEG")
 
     time.sleep(2)
     
     # pegando imagens
     images = list(map(Image.open, list_jpg))
     widths, heights = zip(*(i.size for i in images))
-    
+     
     # somando dimensoes
     total_height = sum(heights)
     max_width = max(widths)
@@ -72,7 +71,6 @@ def export(file_pdf):
         y_offset += image.size[1]
 
     # salva jpg tripa
-    # new_im.save(os.path.join(save_dir, name_jpg+'.jpg'))
     new_im.save(os.path.join(save_dir, name_jpg+'.jpg')) 
     
     # deleta todas os jpgs exportados
